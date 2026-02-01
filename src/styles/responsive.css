@@ -1,0 +1,509 @@
+/* 旭日图思维导图编辑器 - 响应式样式 */
+
+/* ==================== 超小屏幕 (手机竖屏) ==================== */
+@media (max-width: 576px) {
+    /* 基础布局调整 */
+    body {
+        font-size: 13px;
+    }
+    
+    #app {
+        flex-direction: column;
+    }
+    
+    /* 头部区域 */
+    .app-header {
+        padding: 8px 12px;
+        flex-wrap: wrap;
+    }
+    
+    .app-title {
+        font-size: 1.2rem;
+        flex: 1;
+        min-width: 100%;
+        margin-bottom: 8px;
+    }
+    
+    .app-subtitle {
+        display: none;
+    }
+    
+    /* 主内容区域 */
+    .app-main {
+        flex-direction: column;
+    }
+    
+    /* 左侧工具栏 */
+    .toolbar-left {
+        width: 100%;
+        height: 60px;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 0 10px;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+    }
+    
+    .toolbar-button {
+        width: 44px;
+        height: 44px;
+    }
+    
+    .toolbar-button-tooltip {
+        display: none;
+    }
+    
+    /* 图表容器 */
+    .chart-container {
+        height: 60vh;
+    }
+    
+    /* 右侧面板 */
+    .sidebar-right {
+        width: 100%;
+        height: 40vh;
+        border-left: none;
+        border-top: 1px solid var(--color-border);
+    }
+    
+    .sidebar-content {
+        padding: 12px;
+    }
+    
+    /* 模态框 */
+    .modal-container {
+        width: 95%;
+        max-height: 85vh;
+    }
+    
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: 16px;
+    }
+    
+    /* 按钮组 */
+    .btn-group {
+        flex-wrap: wrap;
+    }
+    
+    .btn {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+    
+    /* 底部状态栏 */
+    .app-footer {
+        padding: 6px 12px;
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+    
+    .status-indicator {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+/* ==================== 小屏幕 (手机横屏/小平板) ==================== */
+@media (min-width: 577px) and (max-width: 768px) {
+    /* 基础布局调整 */
+    body {
+        font-size: 13.5px;
+    }
+    
+    /* 头部区域 */
+    .app-header {
+        padding: 10px 16px;
+    }
+    
+    .app-title {
+        font-size: 1.3rem;
+    }
+    
+    /* 左侧工具栏 */
+    .toolbar-left {
+        width: 50px;
+        padding: 12px 0;
+    }
+    
+    .toolbar-button {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .toolbar-button-icon {
+        width: 18px;
+        height: 18px;
+    }
+    
+    /* 右侧面板 */
+    .sidebar-right {
+        width: 250px;
+    }
+    
+    .sidebar-content {
+        padding: 16px;
+    }
+    
+    /* 模态框 */
+    .modal-container {
+        width: 90%;
+    }
+    
+    /* 按钮 */
+    .btn {
+        padding: 7px 14px;
+        font-size: 13.5px;
+    }
+}
+
+/* ==================== 中等屏幕 (平板/小笔记本) ==================== */
+@media (min-width: 769px) and (max-width: 992px) {
+    /* 右侧面板 */
+    .sidebar-right {
+        width: 280px;
+    }
+    
+    /* 图表容器 */
+    .chart-container {
+        min-height: 500px;
+    }
+}
+
+/* ==================== 大屏幕 (桌面) ==================== */
+@media (min-width: 993px) and (max-width: 1200px) {
+    /* 右侧面板 */
+    .sidebar-right {
+        width: 320px;
+    }
+}
+
+/* ==================== 超大屏幕 (大桌面) ==================== */
+@media (min-width: 1201px) {
+    /* 右侧面板 */
+    .sidebar-right {
+        width: 350px;
+    }
+    
+    /* 图表容器 */
+    .chart-container {
+        min-height: 600px;
+    }
+}
+
+/* ==================== 高DPI屏幕 (Retina) ==================== */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    /* 提高边框清晰度 */
+    .toolbar-button,
+    .btn,
+    .input-field,
+    .card,
+    .modal-container,
+    .context-menu {
+        border-width: 0.5px;
+    }
+    
+    /* 提高阴影质量 */
+    .shadow-header,
+    .shadow-card,
+    .shadow-button,
+    .shadow-modal {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+}
+
+/* ==================== 触摸设备优化 ==================== */
+@media (hover: none) and (pointer: coarse) {
+    /* 增大触摸目标 */
+    .toolbar-button {
+        width: 48px;
+        height: 48px;
+        min-height: 44px;
+    }
+    
+    .btn {
+        padding: 12px 20px;
+        min-height: 44px;
+    }
+    
+    .context-menu-item {
+        padding: 14px 20px;
+        min-height: 44px;
+    }
+    
+    /* 移除悬停效果 */
+    .toolbar-button:hover,
+    .btn:hover,
+    .context-menu-item:hover {
+        transform: none;
+    }
+    
+    /* 增加点击反馈 */
+    .toolbar-button:active,
+    .btn:active,
+    .context-menu-item:active {
+        opacity: 0.7;
+        transform: scale(0.98);
+    }
+    
+    /* 禁用文字选择 */
+    .toolbar-button,
+    .btn {
+        user-select: none;
+        -webkit-user-select: none;
+    }
+    
+    /* 优化滚动 */
+    .sidebar-content,
+    .modal-body {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* ==================== 鼠标设备优化 ==================== */
+@media (hover: hover) and (pointer: fine) {
+    /* 显示悬停工具提示 */
+    .toolbar-button:hover .toolbar-button-tooltip {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    /* 精细的悬停效果 */
+    .toolbar-button:hover {
+        transform: translateY(-2px);
+    }
+    
+    .btn:hover {
+        transform: translateY(-1px);
+    }
+}
+
+/* ==================== 打印优化 ==================== */
+@media print {
+    /* 隐藏非必要元素 */
+    .toolbar-left,
+    .sidebar-right,
+    .app-footer,
+    .modal-overlay,
+    .context-menu,
+    .notification {
+        display: none !important;
+    }
+    
+    /* 调整图表容器 */
+    .chart-container {
+        height: 100vh !important;
+        page-break-inside: avoid;
+    }
+    
+    /* 优化文本颜色 */
+    body {
+        color: #000000 !important;
+        background: #ffffff !important;
+    }
+    
+    /* 移除阴影和渐变 */
+    .card,
+    .modal-container {
+        box-shadow: none !important;
+        background: #ffffff !important;
+        border: 1px solid #000000 !important;
+    }
+    
+    /* 确保链接可打印 */
+    a {
+        color: #000000 !important;
+        text-decoration: underline;
+    }
+    
+    /* 避免分页符破坏内容 */
+    .app-main {
+        page-break-inside: avoid;
+    }
+}
+
+/* ==================== 深色模式自动检测 ==================== */
+@media (prefers-color-scheme: dark) {
+    /* 当系统设置为深色模式时，默认使用暗金色主题 */
+    :root:not(.theme-light-blue) {
+        --color-background-primary: #1a1a1a;
+        --color-background-secondary: #2a2a2a;
+        --color-text-primary: #ffffff;
+        --color-border: #444444;
+    }
+}
+
+/* ==================== 浅色模式自动检测 ==================== */
+@media (prefers-color-scheme: light) {
+    /* 当系统设置为浅色模式时，默认使用亮蓝色主题 */
+    :root:not(.theme-dark-gold) {
+        --color-background-primary: #f5f7fa;
+        --color-background-secondary: #ffffff;
+        --color-text-primary: #1a1a1a;
+        --color-border: #e0e0e0;
+    }
+}
+
+/* ==================== 减少动画偏好 ==================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .modal-container,
+    .context-menu,
+    .notification {
+        transition: none !important;
+    }
+}
+
+/* ==================== 高对比度模式 ==================== */
+@media (prefers-contrast: high) {
+    :root {
+        --color-text-primary: #000000;
+        --color-text-secondary: #000000;
+        --color-border: #000000;
+        --color-background-primary: #ffffff;
+        --color-background-secondary: #ffffff;
+    }
+    
+    .theme-dark-gold {
+        --color-text-primary: #ffffff;
+        --color-text-secondary: #ffffff;
+        --color-border: #ffffff;
+        --color-background-primary: #000000;
+        --color-background-secondary: #000000;
+    }
+}
+
+/* ==================== 方向特定样式 ==================== */
+/* 竖屏模式 */
+@media (orientation: portrait) {
+    .app-main {
+        flex-direction: column;
+    }
+    
+    .toolbar-left {
+        width: 100%;
+        height: 60px;
+        flex-direction: row;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+    }
+    
+    .sidebar-right {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid var(--color-border);
+    }
+}
+
+/* 横屏模式 */
+@media (orientation: landscape) and (max-height: 500px) {
+    .app-header {
+        padding: 6px 12px;
+    }
+    
+    .app-title {
+        font-size: 1.1rem;
+    }
+    
+    .toolbar-left {
+        width: 50px;
+        padding: 8px 0;
+    }
+    
+    .toolbar-button {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .sidebar-right {
+        width: 220px;
+    }
+    
+    .sidebar-content {
+        padding: 10px;
+    }
+}
+
+/* ==================== 折叠设备优化 ==================== */
+@media (max-width: 280px) {
+    /* 超小屏幕优化 */
+    .app-header {
+        padding: 6px 8px;
+    }
+    
+    .app-title {
+        font-size: 1rem;
+    }
+    
+    .toolbar-button {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .btn {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+    
+    .modal-container {
+        width: 98%;
+    }
+}
+
+/* ==================== 超大宽屏优化 ==================== */
+@media (min-width: 1600px) {
+    .sidebar-right {
+        width: 400px;
+    }
+    
+    .chart-container {
+        min-height: 700px;
+    }
+    
+    .modal-container {
+        max-width: 600px;
+    }
+}
+
+/* ==================== 性能优化类 ==================== */
+/* 当检测到性能较差时应用的类 */
+.performance-low {
+    /* 减少阴影和渐变 */
+    box-shadow: none !important;
+    background-image: none !important;
+    
+    /* 减少动画 */
+    transition: none !important;
+    animation: none !important;
+    
+    /* 减少模糊效果 */
+    filter: none !important;
+    backdrop-filter: none !important;
+    
+    /* 简化边框 */
+    border-radius: 0 !important;
+}
+
+/* 强制GPU加速 */
+.gpu-accelerate {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+/* 优化字体渲染 */
+.font-optimize {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}

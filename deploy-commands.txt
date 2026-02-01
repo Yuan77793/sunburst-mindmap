@@ -1,0 +1,106 @@
+# 旭日图思维导图编辑器 - 完整部署命令
+# 请按顺序执行以下命令
+
+# ==================== 第1步：打开命令提示符 ====================
+# Windows: 按 Win+R，输入 "cmd"，按 Enter
+# 或搜索 "命令提示符"
+
+# ==================== 第2步：进入项目目录 ====================
+cd C:\Users\Limoc\Desktop\sunburst-mindmap
+
+# ==================== 第3步：检查Git是否安装 ====================
+git --version
+# 如果显示版本号，继续下一步
+# 如果未安装，请先安装Git：https://git-scm.com/download/win
+
+# ==================== 第4步：配置Git用户信息（如果未配置） ====================
+git config --global user.name "您的名字"
+git config --global user.email "您的邮箱@example.com"
+
+# ==================== 第5步：初始化Git仓库 ====================
+git init
+
+# ==================== 第6步：添加所有文件 ====================
+git add .
+
+# ==================== 第7步：提交更改 ====================
+git commit -m "部署旭日图思维导图编辑器 v1.0"
+
+# ==================== 第8步：重命名分支 ====================
+git branch -M main
+
+# ==================== 第9步：添加远程仓库 ====================
+# 请将下面的URL替换为您的实际GitHub仓库URL
+# 格式：https://github.com/您的用户名/仓库名.git
+git remote add origin https://github.com/YOUR_USERNAME/sunburst-mindmap-editor.git
+
+# ==================== 第10步：推送到GitHub ====================
+git push -u origin main
+
+# ==================== 第11步：验证推送成功 ====================
+# 如果看到类似以下输出，表示成功：
+# Counting objects: 100% (xx/xx), done.
+# Writing objects: 100% (xx/xx), xxx KiB | xxx KiB/s, done.
+# Total xx (delta xx), reused 0 (delta 0)
+# To https://github.com/YOUR_USERNAME/sunburst-mindmap-editor.git
+#  * [new branch]      main -> main
+
+# ==================== 第12步：手动启用GitHub Pages ====================
+# 1. 访问 https://github.com/YOUR_USERNAME/sunburst-mindmap-editor
+# 2. 点击 "Settings" (设置)
+# 3. 左侧菜单选择 "Pages" (页面)
+# 4. 在 "Source" (源) 部分：
+#    - 选择 "Deploy from a branch"
+#    - 选择 "main" 分支
+#    - 选择 "/ (root)" 根目录
+# 5. 点击 "Save" (保存)
+
+# ==================== 第13步：等待部署完成 ====================
+# 等待1-2分钟，然后访问：
+# https://YOUR_USERNAME.github.io/sunburst-mindmap-editor/
+
+# ==================== 故障排除命令 ====================
+
+# 如果第10步失败（认证问题）：
+# 方法1：使用SSH密钥（推荐）
+# git remote set-url origin git@github.com:YOUR_USERNAME/sunburst-mindmap-editor.git
+# git push -u origin main
+
+# 方法2：使用个人访问令牌
+# 1. 访问 https://github.com/settings/tokens
+# 2. 生成新令牌，勾选 repo 权限
+# 3. 使用令牌作为密码：
+# git push -u origin main
+# 用户名：您的GitHub用户名
+# 密码：生成的令牌
+
+# 如果文件太多或太大：
+# git add --all
+# git commit -m "部署项目"
+# git push -u origin main --force
+
+# 检查Git状态：
+# git status
+# git log --oneline
+
+# 查看远程仓库：
+# git remote -v
+
+# ==================== 部署成功验证 ====================
+
+# 访问以下链接测试：
+# 1. https://YOUR_USERNAME.github.io/sunburst-mindmap-editor/index.html
+# 2. https://YOUR_USERNAME.github.io/sunburst-mindmap-editor/start.html
+
+# 应该看到：
+# - 完整的应用程序界面
+# - 暗金色主题
+# - 所有功能正常工作
+
+# ==================== 后续更新 ====================
+
+# 修改文件后更新部署：
+# git add .
+# git commit -m "更新描述"
+# git push origin main
+# GitHub会自动重新部署

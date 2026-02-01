@@ -1,0 +1,52 @@
+# GitHub Pages 配置
+title: 旭日图思维导图编辑器
+description: 基于ECharts的交互式旭日图思维导图编辑器
+baseurl: "" # 子目录路径，如果部署在子目录中
+url: "" # 网站地址
+
+# 构建设置
+markdown: kramdown
+highlighter: rouge
+theme: jekyll-theme-cayman
+
+# 排除文件
+exclude:
+  - .github/
+  - .vscode/
+  - node_modules/
+  - scripts/
+  - server.js
+  - start-server.bat
+  - start-server.py
+  - test-verification.js
+  
+# 包含文件
+include:
+  - _config.yml
+  - index.html
+  - start.html
+  - README.md
+  - QUICKSTART.md
+  - CONTRIBUTING.md
+  - LICENSE
+  - package.json
+  - manifest.json
+  - .gitignore
+  - src/
+  - assets/
+
+# 插件
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# SEO设置
+twitter:
+  username: yourusername
+github:
+  username: yourusername
+
+# 作者信息
+author:
+  name: Sunburst MindMap Editor Team
+  email: your-email@example.com

@@ -1,0 +1,186 @@
+/* CSS变量系统 - 设计令牌 */
+
+:root {
+  /* 字体系统 */
+  --font-family-primary: 'Inter', -apple-system, system-ui, sans-serif;
+  --font-family-mono: 'SF Mono', Monaco, 'Cascadia Mono', monospace;
+  
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-md: 1.125rem;   /* 18px */
+  --font-size-lg: 1.25rem;    /* 20px */
+  --font-size-xl: 1.5rem;     /* 24px */
+  --font-size-2xl: 2rem;      /* 32px */
+  --font-size-3xl: 2.5rem;    /* 40px */
+  
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  /* 间距系统 */
+  --spacing-0: 0;
+  --spacing-1: 0.25rem;       /* 4px */
+  --spacing-2: 0.5rem;        /* 8px */
+  --spacing-3: 0.75rem;       /* 12px */
+  --spacing-4: 1rem;          /* 16px */
+  --spacing-5: 1.25rem;       /* 20px */
+  --spacing-6: 1.5rem;        /* 24px */
+  --spacing-8: 2rem;          /* 32px */
+  --spacing-10: 2.5rem;       /* 40px */
+  --spacing-12: 3rem;         /* 48px */
+  --spacing-16: 4rem;         /* 64px */
+  --spacing-20: 5rem;         /* 80px */
+  
+  /* 圆角系统 */
+  --radius-none: 0;
+  --radius-sm: 0.25rem;       /* 4px */
+  --radius-md: 0.5rem;        /* 8px */
+  --radius-lg: 0.75rem;       /* 12px */
+  --radius-xl: 1rem;          /* 16px */
+  --radius-2xl: 1.5rem;       /* 24px */
+  --radius-full: 9999px;
+  
+  /* 阴影系统 */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  
+  /* 边框系统 */
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+  --border-width-thick: 3px;
+  
+  /* 过渡动画 */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* 层级系统 */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+  --z-index-toast: 1080;
+  
+  /* 容器宽度 */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
+}
+
+/* 浅色蓝主题变量 */
+[data-theme="light-blue"] {
+  --color-background: linear-gradient(135deg, #E6F7FF 0%, #B3E0FF 50%, #66CCFF 100%);
+  --color-surface: rgba(255, 255, 255, 0.95);
+  --color-surface-alt: rgba(255, 255, 255, 0.85);
+  
+  --color-primary: #36A1D6;
+  --color-primary-light: #87CEEB;
+  --color-primary-dark: #1E88E5;
+  --color-primary-contrast: #FFFFFF;
+  
+  --color-secondary: #4ECDC4;
+  --color-secondary-light: #7FE5DD;
+  --color-secondary-dark: #2CA8A0;
+  
+  --color-text-primary: #2C3E50;
+  --color-text-secondary: #4A6572;
+  --color-text-tertiary: #7B8B9A;
+  --color-text-disabled: #A0AEC0;
+  
+  --color-border: rgba(54, 161, 214, 0.3);
+  --color-border-light: rgba(54, 161, 214, 0.15);
+  --color-border-dark: rgba(54, 161, 214, 0.45);
+  
+  --color-success: #48BB78;
+  --color-warning: #ED8936;
+  --color-error: #F56565;
+  --color-info: #4299E1;
+  
+  --color-shadow: rgba(54, 161, 214, 0.15);
+  --color-shadow-special: 0 0 12px rgba(102, 204, 255, 0.3);
+  
+  --color-chart-1: #36A1D6;
+  --color-chart-2: #4ECDC4;
+  --color-chart-3: #9F7AEA;
+  --color-chart-4: #F687B3;
+  --color-chart-5: #F6AD55;
+}
+
+/* 深色金主题变量 */
+[data-theme="dark-gold"] {
+  --color-background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a1f1c 100%);
+  --color-surface: rgba(30, 30, 30, 0.95);
+  --color-surface-alt: rgba(40, 40, 40, 0.85);
+  
+  --color-primary: #D4AF37;
+  --color-primary-light: #FFD700;
+  --color-primary-dark: #B8860B;
+  --color-primary-contrast: #1A1A1A;
+  
+  --color-secondary: #C19A6B;
+  --color-secondary-light: #E6C9A8;
+  --color-secondary-dark: #8B7355;
+  
+  --color-text-primary: #F0F0F0;
+  --color-text-secondary: #B0B0B0;
+  --color-text-tertiary: #888888;
+  --color-text-disabled: #666666;
+  
+  --color-border: rgba(212, 175, 55, 0.3);
+  --color-border-light: rgba(212, 175, 55, 0.15);
+  --color-border-dark: rgba(212, 175, 55, 0.45);
+  
+  --color-success: #68D391;
+  --color-warning: #F6AD55;
+  --color-error: #FC8181;
+  --color-info: #76E4F7;
+  
+  --color-shadow: rgba(212, 175, 55, 0.15);
+  --color-shadow-special: 0 0 15px rgba(255, 215, 0, 0.3);
+  
+  --color-chart-1: #D4AF37;
+  --color-chart-2: #C19A6B;
+  --color-chart-3: #A0522D;
+  --color-chart-4: #8B4513;
+  --color-chart-5: #654321;
+}
+
+/* 高对比度主题（无障碍） */
+[data-theme="high-contrast"] {
+  --color-background: #000000;
+  --color-surface: #111111;
+  --color-surface-alt: #222222;
+  
+  --color-primary: #FFFFFF;
+  --color-primary-light: #FFFFFF;
+  --color-primary-dark: #CCCCCC;
+  --color-primary-contrast: #000000;
+  
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #DDDDDD;
+  --color-text-tertiary: #BBBBBB;
+  --color-text-disabled: #888888;
+  
+  --color-border: #FFFFFF;
+  --color-border-light: #CCCCCC;
+  --color-border-dark: #FFFFFF;
+  
+  --color-success: #00FF00;
+  --color-warning: #FFFF00;
+  --color-error: #FF0000;
+  --color-info: #00FFFF;
+}

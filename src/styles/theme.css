@@ -1,0 +1,252 @@
+/* 旭日图思维导图编辑器 - 主题变量定义 */
+
+/* 基础主题变量 - 这些变量将被主题管理器动态更新 */
+:root {
+    /* 颜色系统 - 主色调 */
+    --color-primary: #d4af37;
+    --color-primary-light: #e6c158;
+    --color-primary-dark: #b8941f;
+    --color-primary-rgb: 212, 175, 55;
+    
+    /* 颜色系统 - 背景色 */
+    --color-background-primary: #1a1a1a;
+    --color-background-secondary: #2a2a2a;
+    --color-background-tertiary: #3a3a3a;
+    --color-background-modal: rgba(0, 0, 0, 0.8);
+    
+    /* 颜色系统 - 文本色 */
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #aaaaaa;
+    --color-text-tertiary: #888888;
+    --color-text-inverse: #000000;
+    
+    /* 颜色系统 - 边框色 */
+    --color-border: #444444;
+    --color-border-light: #555555;
+    --color-border-dark: #333333;
+    
+    /* 颜色系统 - 功能色 */
+    --color-success: #4caf50;
+    --color-warning: #ff9800;
+    --color-error: #f44336;
+    --color-info: #2196f3;
+    
+    /* 颜色系统 - 图表色 */
+    --color-chart-1: #d4af37;
+    --color-chart-2: #4caf50;
+    --color-chart-3: #2196f3;
+    --color-chart-4: #ff9800;
+    --color-chart-5: #9c27b0;
+    --color-chart-6: #00bcd4;
+    --color-chart-7: #8bc34a;
+    --color-chart-8: #ff5722;
+    
+    /* 阴影系统 */
+    --shadow-header: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.25);
+    --shadow-button: 0 2px 4px rgba(0, 0, 0, 0.2);
+    --shadow-button-hover: 0 4px 8px rgba(212, 175, 55, 0.3);
+    --shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.4);
+    --shadow-tooltip: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-context-menu: 0 6px 16px rgba(0, 0, 0, 0.35);
+    
+    /* 渐变系统 */
+    --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+    --gradient-background: linear-gradient(135deg, var(--color-background-primary), var(--color-background-secondary));
+    --gradient-card: linear-gradient(135deg, var(--color-background-secondary), var(--color-background-tertiary));
+    
+    /* 边框半径 */
+    --border-radius-small: 4px;
+    --border-radius-base: 6px;
+    --border-radius-large: 10px;
+    --border-radius-circle: 50%;
+    
+    /* 间距系统 */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 12px;
+    --spacing-lg: 16px;
+    --spacing-xl: 24px;
+    --spacing-xxl: 32px;
+    
+    /* 字体大小 */
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-xxl: 1.5rem;
+    --font-size-xxxl: 2rem;
+    
+    /* 字体粗细 */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    
+    /* 过渡动画 */
+    --transition-fast: 0.1s ease;
+    --transition-base: 0.2s ease;
+    --transition-slow: 0.3s ease;
+    --transition-very-slow: 0.5s ease;
+    
+    /* 层级 */
+    --z-index-dropdown: 100;
+    --z-index-sticky: 200;
+    --z-index-fixed: 300;
+    --z-index-modal-backdrop: 400;
+    --z-index-modal: 500;
+    --z-index-popover: 600;
+    --z-index-tooltip: 700;
+    --z-index-toast: 800;
+    --z-index-context-menu: 900;
+    --z-index-toolbar: 1000;
+}
+
+/* 亮色主题变量覆盖 - 当主题切换为light-blue时应用 */
+.theme-light-blue {
+    /* 颜色系统 - 主色调 */
+    --color-primary: #2196f3;
+    --color-primary-light: #64b5f6;
+    --color-primary-dark: #1976d2;
+    --color-primary-rgb: 33, 150, 243;
+    
+    /* 颜色系统 - 背景色 */
+    --color-background-primary: #f5f7fa;
+    --color-background-secondary: #ffffff;
+    --color-background-tertiary: #f0f2f5;
+    --color-background-modal: rgba(255, 255, 255, 0.95);
+    
+    /* 颜色系统 - 文本色 */
+    --color-text-primary: #1a1a1a;
+    --color-text-secondary: #666666;
+    --color-text-tertiary: #999999;
+    --color-text-inverse: #ffffff;
+    
+    /* 颜色系统 - 边框色 */
+    --color-border: #e0e0e0;
+    --color-border-light: #f0f0f0;
+    --color-border-dark: #d0d0d0;
+    
+    /* 颜色系统 - 功能色 */
+    --color-success: #4caf50;
+    --color-warning: #ff9800;
+    --color-error: #f44336;
+    --color-info: #2196f3;
+    
+    /* 颜色系统 - 图表色 */
+    --color-chart-1: #2196f3;
+    --color-chart-2: #4caf50;
+    --color-chart-3: #ff9800;
+    --color-chart-4: #9c27b0;
+    --color-chart-5: #00bcd4;
+    --color-chart-6: #8bc34a;
+    --color-chart-7: #ff5722;
+    --color-chart-8: #607d8b;
+    
+    /* 阴影系统 */
+    --shadow-header: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-button: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-button-hover: 0 4px 8px rgba(33, 150, 243, 0.2);
+    --shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.15);
+    --shadow-tooltip: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-context-menu: 0 6px 16px rgba(0, 0, 0, 0.12);
+    
+    /* 渐变系统 */
+    --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+    --gradient-background: linear-gradient(135deg, var(--color-background-primary), var(--color-background-secondary));
+    --gradient-card: linear-gradient(135deg, var(--color-background-secondary), var(--color-background-tertiary));
+}
+
+/* 暗金色主题变量覆盖 - 当主题切换为dark-gold时应用 */
+.theme-dark-gold {
+    /* 颜色系统 - 主色调 */
+    --color-primary: #d4af37;
+    --color-primary-light: #e6c158;
+    --color-primary-dark: #b8941f;
+    --color-primary-rgb: 212, 175, 55;
+    
+    /* 颜色系统 - 背景色 */
+    --color-background-primary: #1a1a1a;
+    --color-background-secondary: #2a2a2a;
+    --color-background-tertiary: #3a3a3a;
+    --color-background-modal: rgba(0, 0, 0, 0.9);
+    
+    /* 颜色系统 - 文本色 */
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #cccccc;
+    --color-text-tertiary: #aaaaaa;
+    --color-text-inverse: #000000;
+    
+    /* 颜色系统 - 边框色 */
+    --color-border: #444444;
+    --color-border-light: #555555;
+    --color-border-dark: #333333;
+    
+    /* 颜色系统 - 功能色 */
+    --color-success: #4caf50;
+    --color-warning: #ff9800;
+    --color-error: #f44336;
+    --color-info: #2196f3;
+    
+    /* 颜色系统 - 图表色 */
+    --color-chart-1: #d4af37;
+    --color-chart-2: #c0a029;
+    --color-chart-3: #a88c1f;
+    --color-chart-4: #907815;
+    --color-chart-5: #78640b;
+    --color-chart-6: #605001;
+    --color-chart-7: #483c00;
+    --color-chart-8: #302800;
+    
+    /* 阴影系统 */
+    --shadow-header: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.35);
+    --shadow-button: 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-button-hover: 0 4px 8px rgba(212, 175, 55, 0.4);
+    --shadow-modal: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --shadow-tooltip: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-context-menu: 0 6px 16px rgba(0, 0, 0, 0.45);
+    
+    /* 渐变系统 */
+    --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+    --gradient-background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    --gradient-card: linear-gradient(135deg, #2a2a2a, #3a3a3a);
+}
+
+/* 高对比度主题辅助类 */
+.high-contrast {
+    --color-text-primary: #ffffff;
+    --color-text-secondary: #ffffff;
+    --color-border: #ffffff;
+    --color-background-primary: #000000;
+    --color-background-secondary: #111111;
+}
+
+/* 减少动画辅助类 */
+.reduce-motion * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+}
+
+/* 打印样式 */
+@media print {
+    :root {
+        --color-background-primary: #ffffff;
+        --color-text-primary: #000000;
+        --color-border: #000000;
+    }
+    
+    .toolbar-left,
+    .sidebar-right,
+    .app-footer {
+        display: none !important;
+    }
+    
+    .chart-container {
+        height: 100vh !important;
+    }
+}
