@@ -7,34 +7,54 @@
     <meta name="description" content="基于ECharts的交互式旭日图思维导图编辑器，支持节点编辑、主题切换、导入导出等功能">
     <meta name="keywords" content="思维导图,旭日图,ECharts,可视化,编辑器">
     <meta name="author" content="Sunburst MindMap Editor Team">
-    
-    <!-- 引入ECharts -->
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
-    
+
+    <!-- 引入ECharts - 使用备用CDN -->
+    <script src="https://unpkg.com/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script>
+        // ECharts备用加载方案
+        if (typeof echarts === 'undefined') {
+            console.warn('ECharts CDN加载失败，尝试备用方案...');
+            // 可以在这里添加其他备用方案
+        }
+    </script>
+
     <!-- 引入html2canvas用于PNG导出 -->
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    
+    <script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script>
+        // html2canvas备用加载方案
+        if (typeof html2canvas === 'undefined') {
+            console.warn('html2canvas CDN加载失败，应用将继续运行但PNG导出功能不可用');
+        }
+    </script>
+
     <!-- 引入样式文件 -->
     <link rel="stylesheet" href="./src/styles/theme.css">
     <link rel="stylesheet" href="./src/styles/main.css">
     <link rel="stylesheet" href="./src/styles/components.css">
     <link rel="stylesheet" href="./src/styles/responsive.css">
-    
-    <!-- 引入字体图标 -->
+
+    <!-- 引入字体图标 - 使用备用CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <style>
+        /* 字体图标备用方案 */
+        .fa, .fas, .far, .fal, .fad, .fab {
+            font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands', sans-serif;
+        }
+    </style>
+
     <!-- 网站图标 -->
-    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
-    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
-    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌞</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌞</text></svg>">
+
     <!-- PWA支持 -->
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#d4af37">
-    
+
     <!-- 移动端优化 -->
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
+
     <!-- 防止电话号码自动识别 -->
     <meta name="format-detection" content="telephone=no">
 </head>
@@ -49,18 +69,18 @@
                 <span>旭日图思维导图编辑器</span>
                 <span class="app-subtitle">Sunburst MindMap Editor</span>
             </div>
-            
+
             <div class="header-actions">
                 <button id="theme-toggle" class="btn btn-outline btn-sm" title="切换主题">
                     <i class="fas fa-palette"></i>
                     <span>主题</span>
                 </button>
-                
+
                 <button id="export-menu" class="btn btn-outline btn-sm" title="导出选项">
                     <i class="fas fa-download"></i>
                     <span>导出</span>
                 </button>
-                
+
                 <button id="help-btn" class="btn btn-text" title="帮助">
                     <i class="fas fa-question-circle"></i>
                 </button>
@@ -77,69 +97,69 @@
                     </svg>
                     <span class="toolbar-button-tooltip">添加节点</span>
                 </button>
-                
+
                 <button id="btn-edit-node" class="toolbar-button" title="编辑节点">
                     <svg class="toolbar-button-icon" viewBox="0 0 24 24">
                         <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
                     </svg>
                     <span class="toolbar-button-tooltip">编辑节点</span>
                 </button>
-                
+
                 <button id="btn-delete-node" class="toolbar-button" title="删除节点">
                     <svg class="toolbar-button-icon" viewBox="0 0 24 24">
                         <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
                     </svg>
                     <span class="toolbar-button-tooltip">删除节点</span>
                 </button>
-                
+
                 <div class="toolbar-divider"></div>
-                
+
                 <button id="btn-undo" class="toolbar-button" title="撤销 (Ctrl+Z)">
                     <svg class="toolbar-button-icon" viewBox="0 0 24 24">
                         <path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/>
                     </svg>
                     <span class="toolbar-button-tooltip">撤销</span>
                 </button>
-                
+
                 <button id="btn-redo" class="toolbar-button" title="重做 (Ctrl+Y)">
                     <svg class="toolbar-button-icon" viewBox="0 0 24 24">
                         <path d="M18.4 10.6C16.55 8.99 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22L3.9 16c1.05-3.19 4.05-5.5 7.6-5.5 1.95 0 3.73.72 5.12 1.88L13 16h9V7l-3.6 3.6z"/>
                     </svg>
                     <span class="toolbar-button-tooltip">重做</span>
                 </button>
-                
+
                 <div class="toolbar-divider"></div>
-                
+
                 <button id="btn-zoom-in" class="toolbar-button" title="放大 (Ctrl+Plus)">
                     <svg class="toolbar-button-icon" viewBox="0 0 24 24">
                         <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zm2.5-4h-2v2H9v-2H7V9h2V7h1v2h2v1z"/>
                     </svg>
                     <span class="toolbar-button-tooltip">放大</span>
                 </button>
-                
+
                 <button id="btn-zoom-out" class="toolbar-button" title="缩小 (Ctrl+Minus)">
                     <svg class="toolbar-button-icon" viewBox="0 0 24 24">
                         <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM7 9h5v1H7z"/>
                     </svg>
                     <span class="toolbar-button-tooltip">缩小</span>
                 </button>
-                
+
                 <button id="btn-reset-zoom" class="toolbar-button" title="重置缩放 (Ctrl+0)">
                     <svg class="toolbar-button-icon" viewBox="0 0 24 24">
                         <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                     </svg>
                     <span class="toolbar-button-tooltip">重置缩放</span>
                 </button>
-                
+
                 <div class="toolbar-divider"></div>
-                
+
                 <button id="btn-import" class="toolbar-button" title="导入JSON">
                     <svg class="toolbar-button-icon" viewBox="0 0 24 24">
                         <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
                     </svg>
                     <span class="toolbar-button-tooltip">导入</span>
                 </button>
-                
+
                 <button id="btn-export-png" class="toolbar-button" title="导出PNG">
                     <svg class="toolbar-button-icon" viewBox="0 0 24 24">
                         <path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z"/>
@@ -151,7 +171,7 @@
             <!-- 图表容器 -->
             <section class="chart-container">
                 <div id="sunburst-chart"></div>
-                
+
                 <!-- 空状态 -->
                 <div id="empty-state" class="empty-state" style="display: none;">
                     <svg class="empty-state-icon" viewBox="0 0 24 24">
@@ -167,7 +187,7 @@
                         <button id="btn-import-first" class="btn btn-outline" style="margin-left: 10px;">导入数据</button>
                     </div>
                 </div>
-                
+
                 <!-- 加载状态 -->
                 <div id="loading-overlay" class="loading-overlay" style="display: none;">
                     <div class="loading-spinner"></div>
@@ -181,44 +201,44 @@
                     <i class="fas fa-info-circle" style="margin-right: 8px;"></i>
                     节点属性
                 </div>
-                
+
                 <div class="sidebar-content">
                     <div id="node-properties" class="node-properties">
                         <div class="property-group">
                             <div class="property-label">节点名称</div>
                             <div id="node-name" class="property-value">未选择节点</div>
                         </div>
-                        
+
                         <div class="property-group">
                             <div class="property-label">节点ID</div>
                             <div id="node-id" class="property-value">-</div>
                         </div>
-                        
+
                         <div class="property-group">
                             <div class="property-label">节点深度</div>
                             <div id="node-depth" class="property-value">-</div>
                         </div>
-                        
+
                         <div class="property-group">
                             <div class="property-label">子节点数量</div>
                             <div id="node-children-count" class="property-value">-</div>
                         </div>
-                        
+
                         <div class="property-group">
                             <div class="property-label">创建时间</div>
                             <div id="node-created" class="property-value">-</div>
                         </div>
-                        
+
                         <div class="property-group">
                             <div class="property-label">修改时间</div>
                             <div id="node-modified" class="property-value">-</div>
                         </div>
-                        
+
                         <div class="property-group">
                             <div class="property-label">节点描述</div>
                             <textarea id="node-description" class="property-input textarea" placeholder="暂无描述" rows="3" disabled></textarea>
                         </div>
-                        
+
                         <div class="property-group">
                             <div class="property-label">节点颜色</div>
                             <div style="display: flex; align-items: center; gap: 10px;">
@@ -226,7 +246,7 @@
                                 <div id="node-color-value" class="property-value" style="flex: 1;">#d4af37</div>
                             </div>
                         </div>
-                        
+
                         <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--color-border);">
                             <button id="btn-update-node" class="btn btn-primary" style="width: 100%;" disabled>
                                 <i class="fas fa-save" style="margin-right: 8px;"></i>
@@ -234,7 +254,7 @@
                             </button>
                         </div>
                     </div>
-                    
+
                     <div id="no-selection" style="text-align: center; padding: 40px 20px; color: var(--color-text-secondary);">
                         <i class="fas fa-mouse-pointer" style="font-size: 2rem; margin-bottom: 16px; opacity: 0.5;"></i>
                         <p>点击图表中的节点查看详细信息</p>
@@ -249,7 +269,7 @@
                 <div class="status-dot" id="status-dot"></div>
                 <span id="status-text">就绪</span>
             </div>
-            
+
             <div class="footer-info">
                 <span id="node-count">节点: 0</span>
                 <span style="margin: 0 10px;">|</span>
@@ -257,7 +277,7 @@
                 <span style="margin: 0 10px;">|</span>
                 <span id="zoom-level">缩放: 100%</span>
             </div>
-            
+
             <div class="footer-actions">
                 <button id="btn-auto-save" class="btn-text" title="自动保存已启用">
                     <i class="fas fa-save"></i>
@@ -286,12 +306,12 @@
         import { ToolbarController } from './src/core/ui-components/ToolbarController.js';
         import { ContextMenu } from './src/core/ui-components/ContextMenu.js';
         import { ModalSystem } from './src/core/ui-components/ModalSystem.js';
-        
+
         // 导入工具函数
         import { DOMUtils } from './src/core/utils/DOMUtils.js';
         import { MathUtils } from './src/core/utils/MathUtils.js';
         import { ColorUtils } from './src/core/utils/ColorUtils.js';
-        
+
         // 应用初始化
         class SunburstMindMapApp {
             constructor() {
@@ -302,24 +322,24 @@
                 this.toolbarController = new ToolbarController();
                 this.contextMenu = new ContextMenu();
                 this.modalSystem = new ModalSystem();
-                
+
                 this.currentNodeId = null;
                 this.zoomLevel = 1.0;
                 this.isLoading = false;
-                
+
                 this.init();
             }
-            
+
             init() {
                 this.initEventListeners();
                 this.initSunburstChart();
                 this.loadFromLocalStorage();
                 this.updateUI();
-                
+
                 // 设置初始状态
                 this.setStatus('ready', '就绪');
             }
-            
+
             initEventListeners() {
                 // 工具栏按钮事件
                 DOMUtils.on('#btn-add-node', 'click', () => this.handleAddNode());
@@ -336,26 +356,26 @@
                 DOMUtils.on('#btn-create-sample', 'click', () => this.createSampleData());
                 DOMUtils.on('#btn-import-first', 'click', () => this.handleImport());
                 DOMUtils.on('#btn-update-node', 'click', () => this.handleUpdateNode());
-                
+
                 // 键盘快捷键
                 document.addEventListener('keydown', (e) => this.handleKeyDown(e));
-                
+
                 // 窗口调整大小
                 window.addEventListener('resize', DOMUtils.debounce(() => {
                     this.sunburstEngine.resize();
                 }, 250));
-                
+
                 // 图表点击事件
                 this.sunburstEngine.on('click', (params) => this.handleChartClick(params));
                 this.sunburstEngine.on('dblclick', (params) => this.handleChartDoubleClick(params));
                 this.sunburstEngine.on('contextmenu', (params) => this.handleChartRightClick(params));
             }
-            
+
             initSunburstChart() {
                 this.sunburstEngine.init();
                 this.updateChart();
             }
-            
+
             handleAddNode() {
                 const parentId = this.currentNodeId || 'root';
                 this.modalSystem.showNodeEditor({
@@ -368,16 +388,16 @@
                     }
                 });
             }
-            
+
             handleEditNode() {
                 if (!this.currentNodeId) {
                     this.showNotification('请先选择一个节点', 'warning');
                     return;
                 }
-                
+
                 const node = this.treeManager.findNode(this.currentNodeId);
                 if (!node) return;
-                
+
                 this.modalSystem.showNodeEditor({
                     node,
                     onSave: (nodeData) => {
@@ -388,13 +408,13 @@
                     }
                 });
             }
-            
+
             handleDeleteNode() {
                 if (!this.currentNodeId) {
                     this.showNotification('请先选择一个节点', 'warning');
                     return;
                 }
-                
+
                 this.modalSystem.showConfirmDialog({
                     title: '确认删除',
                     message: `确定要删除节点 "${this.treeManager.findNode(this.currentNodeId)?.name}" 及其所有子节点吗？`,
@@ -407,7 +427,7 @@
                     }
                 });
             }
-            
+
             handleUndo() {
                 if (this.historyManager.canUndo()) {
                     this.historyManager.undo();
@@ -415,7 +435,7 @@
                     this.setStatus('info', '已撤销上一步操作');
                 }
             }
-            
+
             handleRedo() {
                 if (this.historyManager.canRedo()) {
                     this.historyManager.redo();
@@ -423,22 +443,22 @@
                     this.setStatus('info', '已重做上一步操作');
                 }
             }
-            
+
             handleZoomIn() {
                 this.zoomLevel = Math.min(this.zoomLevel + 0.1, 2.0);
                 this.updateZoom();
             }
-            
+
             handleZoomOut() {
                 this.zoomLevel = Math.max(this.zoomLevel - 0.1, 0.5);
                 this.updateZoom();
             }
-            
+
             handleResetZoom() {
                 this.zoomLevel = 1.0;
                 this.updateZoom();
             }
-            
+
             handleImport() {
                 this.modalSystem.showImportDialog({
                     onImport: (jsonData) => {
@@ -454,7 +474,7 @@
                     }
                 });
             }
-            
+
             handleExportPNG() {
                 this.setStatus('loading', '正在生成PNG...');
                 this.sunburstEngine.exportToPNG('sunburst-mindmap.png')
@@ -465,14 +485,14 @@
                         this.setStatus('error', `导出失败: ${error.message}`);
                     });
             }
-            
+
             handleThemeToggle() {
                 const currentTheme = this.themeManager.getCurrentTheme();
                 const newTheme = currentTheme === 'dark-gold' ? 'light-blue' : 'dark-gold';
                 this.themeManager.switchTheme(newTheme);
                 this.updateThemeUI(newTheme);
             }
-            
+
             handleChartClick(params) {
                 if (params.data && params.data.id) {
                     this.currentNodeId = params.data.id;
@@ -480,19 +500,19 @@
                     this.sunburstEngine.highlightNode(this.currentNodeId);
                 }
             }
-            
+
             handleChartDoubleClick(params) {
                 if (params.data && params.data.id) {
                     this.currentNodeId = params.data.id;
                     this.handleEditNode();
                 }
             }
-            
+
             handleChartRightClick(params) {
                 if (params.data && params.data.id) {
                     this.currentNodeId = params.data.id;
                     const node = this.treeManager.findNode(this.currentNodeId);
-                    
+
                     this.contextMenu.show({
                         x: params.event.event.clientX,
                         y: params.event.event.clientY,
@@ -507,10 +527,10 @@
                         onSelect: (itemId) => this.handleContextMenuSelect(itemId, node)
                     });
                 }
-                
+
                 params.event.event.preventDefault();
             }
-            
+
             handleContextMenuSelect(itemId, node) {
                 switch (itemId) {
                     case 'edit':
@@ -537,51 +557,51 @@
                         break;
                 }
             }
-            
+
             handleKeyDown(e) {
                 // Ctrl+Z: 撤销
                 if (e.ctrlKey && e.key === 'z') {
                     e.preventDefault();
                     this.handleUndo();
                 }
-                
+
                 // Ctrl+Y: 重做
                 if (e.ctrlKey && e.key === 'y') {
                     e.preventDefault();
                     this.handleRedo();
                 }
-                
+
                 // Ctrl+Plus: 放大
                 if (e.ctrlKey && (e.key === '+' || e.key === '=')) {
                     e.preventDefault();
                     this.handleZoomIn();
                 }
-                
+
                 // Ctrl+Minus: 缩小
                 if (e.ctrlKey && e.key === '-') {
                     e.preventDefault();
                     this.handleZoomOut();
                 }
-                
+
                 // Ctrl+0: 重置缩放
                 if (e.ctrlKey && e.key === '0') {
                     e.preventDefault();
                     this.handleResetZoom();
                 }
-                
+
                 // Delete: 删除节点
                 if (e.key === 'Delete' && this.currentNodeId) {
                     e.preventDefault();
                     this.handleDeleteNode();
                 }
             }
-            
+
             handleUpdateNode() {
                 if (!this.currentNodeId) return;
-                
+
                 const description = document.getElementById('node-description').value;
                 const node = this.treeManager.findNode(this.currentNodeId);
-                
+
                 if (node) {
                     node.description = description;
                     node.modified = new Date().toISOString();
@@ -591,7 +611,7 @@
                     this.setStatus('success', '节点描述已更新');
                 }
             }
-            
+
             createSampleData() {
                 const sampleData = {
                     id: 'root',
@@ -630,30 +650,30 @@
                         }
                     ]
                 };
-                
+
                 this.treeManager.loadFromJSON(sampleData);
                 this.historyManager.clear();
                 this.updateChart();
                 this.setStatus('success', '示例数据已创建');
                 this.saveToLocalStorage();
             }
-            
+
             updateChart() {
                 const data = this.treeManager.toEChartsData();
                 this.sunburstEngine.setData(data);
-                
+
                 // 更新节点计数
                 const nodeCount = this.treeManager.getNodeCount();
                 document.getElementById('node-count').textContent = `节点: ${nodeCount}`;
-                
+
                 // 显示/隐藏空状态
                 const emptyState = document.getElementById('empty-state');
                 emptyState.style.display = nodeCount === 0 ? 'flex' : 'none';
-                
+
                 // 更新按钮状态
                 this.updateButtonStates();
             }
-            
+
             updateNodeProperties() {
                 if (!this.currentNodeId) {
                     document.getElementById('no-selection').style.display = 'block';
@@ -661,13 +681,13 @@
                     document.getElementById('btn-update-node').disabled = true;
                     return;
                 }
-                
+
                 const node = this.treeManager.findNode(this.currentNodeId);
                 if (!node) return;
-                
+
                 document.getElementById('no-selection').style.display = 'none';
                 document.getElementById('node-properties').style.display = 'block';
-                
+
                 document.getElementById('node-name').textContent = node.name || '未命名';
                 document.getElementById('node-id').textContent = node.id || '-';
                 document.getElementById('node-depth').textContent = node.depth || '0';
@@ -676,44 +696,44 @@
                 document.getElementById('node-modified').textContent = node.modified ? new Date(node.modified).toLocaleString() : '-';
                 document.getElementById('node-description').value = node.description || '';
                 document.getElementById('node-description').disabled = false;
-                
+
                 if (node.color) {
                     document.getElementById('node-color-preview').style.background = node.color;
                     document.getElementById('node-color-value').textContent = node.color;
                 }
-                
+
                 document.getElementById('btn-update-node').disabled = false;
             }
-            
+
             updateButtonStates() {
                 document.getElementById('btn-undo').disabled = !this.historyManager.canUndo();
                 document.getElementById('btn-redo').disabled = !this.historyManager.canRedo();
                 document.getElementById('btn-edit-node').disabled = !this.currentNodeId;
                 document.getElementById('btn-delete-node').disabled = !this.currentNodeId;
             }
-            
+
             updateZoom() {
                 this.sunburstEngine.setZoom(this.zoomLevel);
                 document.getElementById('zoom-level').textContent = `缩放: ${Math.round(this.zoomLevel * 100)}%`;
             }
-            
+
             updateThemeUI(theme) {
                 const themeName = theme === 'dark-gold' ? '暗金色' : '亮蓝色';
                 document.getElementById('theme-name').textContent = `主题: ${themeName}`;
                 document.body.className = `theme-${theme}`;
             }
-            
+
             updateUI() {
                 this.updateButtonStates();
                 this.updateNodeProperties();
                 this.updateZoom();
                 this.updateThemeUI(this.themeManager.getCurrentTheme());
             }
-            
+
             setStatus(type, message) {
                 const statusDot = document.getElementById('status-dot');
                 const statusText = document.getElementById('status-text');
-                
+
                 statusDot.className = 'status-dot';
                 switch (type) {
                     case 'ready':
@@ -734,14 +754,14 @@
                     default:
                         statusDot.style.background = 'var(--color-info)';
                 }
-                
+
                 statusText.textContent = message;
             }
-            
+
             showNotification(message, type = 'info') {
                 this.modalSystem.showNotification(message, type);
             }
-            
+
             saveToLocalStorage() {
                 try {
                     const data = this.treeManager.toJSON();
@@ -751,17 +771,17 @@
                     console.warn('无法保存到本地存储:', error);
                 }
             }
-            
+
             loadFromLocalStorage() {
                 try {
                     const savedData = localStorage.getItem('sunburst-mindmap-data');
                     const savedTheme = localStorage.getItem('sunburst-mindmap-theme');
-                    
+
                     if (savedData) {
                         const data = JSON.parse(savedData);
                         this.treeManager.loadFromJSON(data);
                     }
-                    
+
                     if (savedTheme) {
                         this.themeManager.switchTheme(savedTheme);
                         this.updateThemeUI(savedTheme);

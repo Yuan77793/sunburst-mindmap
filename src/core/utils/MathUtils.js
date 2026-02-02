@@ -497,3 +497,6 @@ class MathUtils {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = MathUtils;
 }
+
+// ES6模块导出
+export { MathUtils };

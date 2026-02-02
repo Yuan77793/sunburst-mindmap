@@ -12,68 +12,10 @@
   "background_color": "#1a1a1a",
   "icons": [
     {
-      "src": "./assets/icon-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png",
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23d4af37'/><text x='50' y='65' text-anchor='middle' font-family='Arial, sans-serif' font-size='40' fill='white'>S</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
-    },
-    {
-      "src": "./assets/icon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./assets/icon-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./assets/icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./assets/icon-152x152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./assets/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./assets/icon-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "./assets/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "./assets/screenshot-desktop.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "桌面版截图"
-    },
-    {
-      "src": "./assets/screenshot-mobile.png",
-      "sizes": "750x1334",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "移动版截图"
     }
   ],
   "categories": [
@@ -81,63 +23,6 @@
     "utilities",
     "education"
   ],
-  "shortcuts": [
-    {
-      "name": "新建思维导图",
-      "short_name": "新建",
-      "description": "创建新的思维导图",
-      "url": "./index.html?action=new",
-      "icons": [
-        {
-          "src": "./assets/shortcut-new.png",
-          "sizes": "96x96"
-        }
-      ]
-    },
-    {
-      "name": "打开最近文件",
-      "short_name": "最近",
-      "description": "打开最近编辑的思维导图",
-      "url": "./index.html?action=recent",
-      "icons": [
-        {
-          "src": "./assets/shortcut-recent.png",
-          "sizes": "96x96"
-        }
-      ]
-    }
-  ],
   "prefer_related_applications": false,
-  "related_applications": [],
-  "protocol_handlers": [
-    {
-      "protocol": "web+sunburst",
-      "url": "./index.html?url=%s"
-    }
-  ],
-  "share_target": {
-    "action": "./index.html?share",
-    "method": "POST",
-    "enctype": "multipart/form-data",
-    "params": {
-      "title": "name",
-      "text": "description",
-      "url": "link",
-      "files": [
-        {
-          "name": "jsonfile",
-          "accept": ["application/json", ".json"]
-        }
-      ]
-    }
-  },
-  "file_handlers": [
-    {
-      "action": "./index.html?import",
-      "accept": {
-        "application/json": [".json"]
-      },
-      "name": "JSON思维导图文件"
-    }
-  ]
+  "related_applications": []
 }

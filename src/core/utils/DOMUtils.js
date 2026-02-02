@@ -12,7 +12,7 @@ class DOMUtils {
      */
     static createElement(tag, attributes = {}, content = null) {
         const element = document.createElement(tag);
-        
+
         // 设置属性
         Object.keys(attributes).forEach(key => {
             if (key === 'className') {
@@ -27,7 +27,7 @@ class DOMUtils {
                 element.setAttribute(key, attributes[key]);
             }
         });
-        
+
         // 设置内容
         if (content !== null) {
             if (typeof content === 'string') {
@@ -42,10 +42,10 @@ class DOMUtils {
                 });
             }
         }
-        
+
         return element;
     }
-    
+
     /**
      * 获取元素
      * @param {string} selector - CSS选择器
@@ -55,7 +55,7 @@ class DOMUtils {
     static getElement(selector, parent = document) {
         return parent.querySelector(selector);
     }
-    
+
     /**
      * 获取元素列表
      * @param {string} selector - CSS选择器
@@ -65,7 +65,7 @@ class DOMUtils {
     static getElements(selector, parent = document) {
         return parent.querySelectorAll(selector);
     }
-    
+
     /**
      * 添加类名
      * @param {HTMLElement} element - 元素
@@ -76,7 +76,7 @@ class DOMUtils {
             element.classList.add(className);
         }
     }
-    
+
     /**
      * 移除类名
      * @param {HTMLElement} element - 元素
@@ -87,7 +87,7 @@ class DOMUtils {
             element.classList.remove(className);
         }
     }
-    
+
     /**
      * 切换类名
      * @param {HTMLElement} element - 元素
@@ -100,7 +100,7 @@ class DOMUtils {
         }
         return false;
     }
-    
+
     /**
      * 检查是否包含类名
      * @param {HTMLElement} element - 元素
@@ -110,7 +110,7 @@ class DOMUtils {
     static hasClass(element, className) {
         return element && element.classList.contains(className);
     }
-    
+
     /**
      * 设置样式
      * @param {HTMLElement} element - 元素
@@ -121,7 +121,7 @@ class DOMUtils {
             Object.assign(element.style, styles);
         }
     }
-    
+
     /**
      * 获取计算样式
      * @param {HTMLElement} element - 元素
@@ -132,7 +132,7 @@ class DOMUtils {
         if (!element || !property) return '';
         return window.getComputedStyle(element).getPropertyValue(property);
     }
-    
+
     /**
      * 显示元素
      * @param {HTMLElement} element - 元素
@@ -143,7 +143,7 @@ class DOMUtils {
             element.style.display = display;
         }
     }
-    
+
     /**
      * 隐藏元素
      * @param {HTMLElement} element - 元素
@@ -153,7 +153,7 @@ class DOMUtils {
             element.style.display = 'none';
         }
     }
-    
+
     /**
      * 切换元素显示/隐藏
      * @param {HTMLElement} element - 元素
@@ -162,7 +162,7 @@ class DOMUtils {
      */
     static toggleVisibility(element, display = 'block') {
         if (!element) return false;
-        
+
         if (element.style.display === 'none') {
             this.show(element, display);
             return true;
@@ -171,7 +171,7 @@ class DOMUtils {
             return false;
         }
     }
-    
+
     /**
      * 设置元素文本
      * @param {HTMLElement} element - 元素
@@ -182,7 +182,7 @@ class DOMUtils {
             element.textContent = text;
         }
     }
-    
+
     /**
      * 设置元素HTML
      * @param {HTMLElement} element - 元素
@@ -193,7 +193,7 @@ class DOMUtils {
             element.innerHTML = html;
         }
     }
-    
+
     /**
      * 清空元素内容
      * @param {HTMLElement} element - 元素
@@ -203,7 +203,7 @@ class DOMUtils {
             element.innerHTML = '';
         }
     }
-    
+
     /**
      * 添加子元素
      * @param {HTMLElement} parent - 父元素
@@ -214,7 +214,7 @@ class DOMUtils {
             parent.appendChild(child);
         }
     }
-    
+
     /**
      * 移除子元素
      * @param {HTMLElement} parent - 父元素
@@ -225,7 +225,7 @@ class DOMUtils {
             parent.removeChild(child);
         }
     }
-    
+
     /**
      * 移除元素
      * @param {HTMLElement} element - 要移除的元素
@@ -235,7 +235,7 @@ class DOMUtils {
             element.parentNode.removeChild(element);
         }
     }
-    
+
     /**
      * 替换元素
      * @param {HTMLElement} oldElement - 旧元素
@@ -246,7 +246,7 @@ class DOMUtils {
             oldElement.parentNode.replaceChild(newElement, oldElement);
         }
     }
-    
+
     /**
      * 克隆元素
      * @param {HTMLElement} element - 元素
@@ -257,7 +257,7 @@ class DOMUtils {
         if (!element) return null;
         return element.cloneNode(deep);
     }
-    
+
     /**
      * 获取元素位置和尺寸
      * @param {HTMLElement} element - 元素
@@ -265,7 +265,7 @@ class DOMUtils {
      */
     static getBoundingRect(element) {
         if (!element) return null;
-        
+
         const rect = element.getBoundingClientRect();
         return {
             top: rect.top,
@@ -278,7 +278,7 @@ class DOMUtils {
             y: rect.y
         };
     }
-    
+
     /**
      * 获取元素在文档中的位置
      * @param {HTMLElement} element - 元素
@@ -286,20 +286,20 @@ class DOMUtils {
      */
     static getOffset(element) {
         if (!element) return { top: 0, left: 0 };
-        
+
         let top = 0;
         let left = 0;
         let current = element;
-        
+
         while (current) {
             top += current.offsetTop;
             left += current.offsetLeft;
             current = current.offsetParent;
         }
-        
+
         return { top, left };
     }
-    
+
     /**
      * 获取视口尺寸
      * @returns {Object} 视口尺寸 {width, height}
@@ -310,7 +310,7 @@ class DOMUtils {
             height: window.innerHeight || document.documentElement.clientHeight
         };
     }
-    
+
     /**
      * 获取文档尺寸
      * @returns {Object} 文档尺寸 {width, height}
@@ -321,7 +321,7 @@ class DOMUtils {
             height: document.documentElement.scrollHeight
         };
     }
-    
+
     /**
      * 获取滚动位置
      * @returns {Object} 滚动位置 {top, left}
@@ -332,7 +332,7 @@ class DOMUtils {
             left: window.pageXOffset || document.documentElement.scrollLeft
         };
     }
-    
+
     /**
      * 滚动到元素
      * @param {HTMLElement} element - 元素
@@ -340,16 +340,16 @@ class DOMUtils {
      */
     static scrollToElement(element, options = {}) {
         if (!element) return;
-        
+
         const defaultOptions = {
             behavior: 'smooth',
             block: 'start',
             inline: 'nearest'
         };
-        
+
         element.scrollIntoView({ ...defaultOptions, ...options });
     }
-    
+
     /**
      * 滚动到指定位置
      * @param {number} top - 顶部位置
@@ -360,14 +360,14 @@ class DOMUtils {
         const defaultOptions = {
             behavior: 'smooth'
         };
-        
+
         window.scrollTo({
             top,
             left,
             behavior: options.behavior || 'smooth'
         });
     }
-    
+
     /**
      * 添加事件监听器
      * @param {HTMLElement} element - 元素
@@ -380,7 +380,7 @@ class DOMUtils {
             element.addEventListener(event, handler, options);
         }
     }
-    
+
     /**
      * 移除事件监听器
      * @param {HTMLElement} element - 元素
@@ -393,7 +393,7 @@ class DOMUtils {
             element.removeEventListener(event, handler, options);
         }
     }
-    
+
     /**
      * 一次性事件监听器
      * @param {HTMLElement} element - 元素
@@ -409,7 +409,7 @@ class DOMUtils {
             this.on(element, event, onceHandler);
         }
     }
-    
+
     /**
      * 触发自定义事件
      * @param {HTMLElement} element - 元素
@@ -419,16 +419,16 @@ class DOMUtils {
      */
     static triggerEvent(element, eventName, detail = {}) {
         if (!element || !eventName) return false;
-        
+
         const event = new CustomEvent(eventName, {
             bubbles: true,
             cancelable: true,
             detail
         });
-        
+
         return element.dispatchEvent(event);
     }
-    
+
     /**
      * 阻止事件冒泡
      * @param {Event} event - 事件对象
@@ -438,7 +438,7 @@ class DOMUtils {
             event.stopPropagation();
         }
     }
-    
+
     /**
      * 阻止默认行为
      * @param {Event} event - 事件对象
@@ -448,7 +448,7 @@ class DOMUtils {
             event.preventDefault();
         }
     }
-    
+
     /**
      * 获取事件目标
      * @param {Event} event - 事件对象
@@ -457,7 +457,7 @@ class DOMUtils {
     static getEventTarget(event) {
         return event.target || event.srcElement;
     }
-    
+
     /**
      * 获取事件相关元素（对于mouseover/mouseout）
      * @param {Event} event - 事件对象
@@ -466,7 +466,7 @@ class DOMUtils {
     static getRelatedTarget(event) {
         return event.relatedTarget || event.toElement || event.fromElement;
     }
-    
+
     /**
      * 设置元素属性
      * @param {HTMLElement} element - 元素
@@ -478,7 +478,7 @@ class DOMUtils {
             element.setAttribute(name, value);
         }
     }
-    
+
     /**
      * 获取元素属性
      * @param {HTMLElement} element - 元素
@@ -491,7 +491,7 @@ class DOMUtils {
         }
         return null;
     }
-    
+
     /**
      * 移除元素属性
      * @param {HTMLElement} element - 元素
@@ -502,7 +502,7 @@ class DOMUtils {
             element.removeAttribute(name);
         }
     }
-    
+
     /**
      * 设置元素数据属性
      * @param {HTMLElement} element - 元素
@@ -514,7 +514,7 @@ class DOMUtils {
             element.dataset[key] = value;
         }
     }
-    
+
     /**
      * 获取元素数据属性
      * @param {HTMLElement} element - 元素
@@ -527,7 +527,7 @@ class DOMUtils {
         }
         return null;
     }
-    
+
     /**
      * 检查元素是否可见
      * @param {HTMLElement} element - 元素
@@ -535,15 +535,15 @@ class DOMUtils {
      */
     static isVisible(element) {
         if (!element) return false;
-        
+
         const style = window.getComputedStyle(element);
-        return style.display !== 'none' && 
-               style.visibility !== 'hidden' && 
-               style.opacity !== '0' &&
-               element.offsetWidth > 0 &&
-               element.offsetHeight > 0;
+        return style.display !== 'none' &&
+            style.visibility !== 'hidden' &&
+            style.opacity !== '0' &&
+            element.offsetWidth > 0 &&
+            element.offsetHeight > 0;
     }
-    
+
     /**
      * 检查元素是否在视口内
      * @param {HTMLElement} element - 元素
@@ -552,19 +552,19 @@ class DOMUtils {
      */
     static isInViewport(element, threshold = 0) {
         if (!element) return false;
-        
+
         const rect = element.getBoundingClientRect();
         const viewport = this.getViewportSize();
-        
+
         const visibleHeight = Math.min(rect.bottom, viewport.height) - Math.max(rect.top, 0);
         const visibleWidth = Math.min(rect.right, viewport.width) - Math.max(rect.left, 0);
-        
+
         const visibleArea = visibleHeight * visibleWidth;
         const totalArea = rect.width * rect.height;
-        
+
         return visibleArea > totalArea * threshold;
     }
-    
+
     /**
      * 获取元素的所有父元素
      * @param {HTMLElement} element - 元素
@@ -573,15 +573,15 @@ class DOMUtils {
     static getParents(element) {
         const parents = [];
         let current = element.parentElement;
-        
+
         while (current) {
             parents.push(current);
             current = current.parentElement;
         }
-        
+
         return parents;
     }
-    
+
     /**
      * 获取元素的子元素
      * @param {HTMLElement} element - 元素
@@ -591,7 +591,7 @@ class DOMUtils {
         if (!element) return [];
         return Array.from(element.children);
     }
-    
+
     /**
      * 获取元素的兄弟元素
      * @param {HTMLElement} element - 元素
@@ -599,13 +599,13 @@ class DOMUtils {
      */
     static getSiblings(element) {
         if (!element) return { previous: null, next: null };
-        
+
         return {
             previous: element.previousElementSibling,
             next: element.nextElementSibling
         };
     }
-    
+
     /**
      * 查找匹配选择器的父元素
      * @param {HTMLElement} element - 元素
@@ -614,7 +614,7 @@ class DOMUtils {
      */
     static closest(element, selector) {
         if (!element || !selector) return null;
-        
+
         let current = element;
         while (current) {
             if (current.matches(selector)) {
@@ -622,10 +622,10 @@ class DOMUtils {
             }
             current = current.parentElement;
         }
-        
+
         return null;
     }
-    
+
     /**
      * 检查元素是否匹配选择器
      * @param {HTMLElement} element - 元素
@@ -634,11 +634,11 @@ class DOMUtils {
      */
     static matches(element, selector) {
         if (!element || !selector) return false;
-        
+
         // 使用原生matches方法
         return element.matches(selector);
     }
-    
+
     /**
      * 创建文档片段
      * @param {Array} elements - 元素数组
@@ -646,16 +646,16 @@ class DOMUtils {
      */
     static createFragment(elements = []) {
         const fragment = document.createDocumentFragment();
-        
+
         elements.forEach(element => {
             if (element instanceof HTMLElement) {
                 fragment.appendChild(element);
             }
         });
-        
+
         return fragment;
     }
-    
+
     /**
      * 批量操作元素
      * @param {NodeList|Array} elements - 元素集合
@@ -663,12 +663,12 @@ class DOMUtils {
      */
     static forEach(elements, callback) {
         if (!elements || !callback) return;
-        
+
         Array.from(elements).forEach((element, index) => {
             callback(element, index, elements);
         });
     }
-    
+
     /**
      * 防抖函数
      * @param {Function} func - 要执行的函数
@@ -686,7 +686,7 @@ class DOMUtils {
             timeout = setTimeout(later, wait);
         };
     }
-    
+
     /**
      * 节流函数
      * @param {Function} func - 要执行的函数
@@ -703,7 +703,7 @@ class DOMUtils {
             }
         };
     }
-    
+
     /**
      * 异步加载脚本
      * @param {string} src - 脚本URL
@@ -714,18 +714,18 @@ class DOMUtils {
         return new Promise((resolve, reject) => {
             const script = document.createElement('script');
             script.src = src;
-            
+
             Object.keys(options).forEach(key => {
                 script[key] = options[key];
             });
-            
+
             script.onload = () => resolve(script);
             script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
-            
+
             document.head.appendChild(script);
         });
     }
-    
+
     /**
      * 异步加载样式
      * @param {string} href - 样式URL
@@ -736,14 +736,14 @@ class DOMUtils {
             const link = document.createElement('link');
             link.rel = 'stylesheet';
             link.href = href;
-            
+
             link.onload = () => resolve(link);
             link.onerror = () => reject(new Error(`Failed to load style: ${href}`));
-            
+
             document.head.appendChild(link);
         });
     }
-    
+
     /**
      * 复制文本到剪贴板
      * @param {string} text - 要复制的文本
@@ -759,7 +759,7 @@ class DOMUtils {
                 textArea.style.opacity = '0';
                 document.body.appendChild(textArea);
                 textArea.select();
-                
+
                 try {
                     const successful = document.execCommand('copy');
                     document.body.removeChild(textArea);
@@ -770,13 +770,13 @@ class DOMUtils {
                 }
                 return;
             }
-            
+
             navigator.clipboard.writeText(text)
                 .then(resolve)
                 .catch(reject);
         });
     }
-    
+
     /**
      * 获取焦点元素
      * @returns {HTMLElement} 当前焦点元素
@@ -784,7 +784,7 @@ class DOMUtils {
     static getFocusedElement() {
         return document.activeElement;
     }
-    
+
     /**
      * 设置焦点到元素
      * @param {HTMLElement} element - 元素
@@ -795,7 +795,7 @@ class DOMUtils {
             element.focus(options);
         }
     }
-    
+
     /**
      * 移除焦点
      * @param {HTMLElement} element - 元素
@@ -811,3 +811,6 @@ class DOMUtils {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = DOMUtils;
 }
+
+// ES6模块导出
+export { DOMUtils };
