@@ -14,53 +14,53 @@ class ToolbarController {
             animationDuration: 200,
             ...options
         };
-        
+
         this.toolbar = null;
         this.buttons = new Map();
         this.buttonStates = new Map();
         this.shortcuts = new Map();
-        
+
         // 事件监听器
         this.eventListeners = new Map();
-        
+
         // 初始化
         this.init();
     }
-    
+
     /**
      * 初始化工具栏
      */
     init() {
         this.toolbar = document.getElementById(this.options.toolbarId);
-        
+
         if (!this.toolbar) {
             console.warn(`工具栏元素未找到: ${this.options.toolbarId}`);
             return;
         }
-        
+
         // 收集所有按钮
         this.collectButtons();
-        
+
         // 绑定事件
         this.bindEvents();
-        
+
         // 初始化快捷键
         if (this.options.enableShortcuts) {
             this.initShortcuts();
         }
-        
+
         // 初始状态
         this.updateButtonStates();
-        
+
         this.emit('initialized', { buttonCount: this.buttons.size });
     }
-    
+
     /**
      * 收集工具栏按钮
      */
     collectButtons() {
         const buttonElements = this.toolbar.querySelectorAll('.toolbar-btn, .theme-btn, .primary-btn, .secondary-btn');
-        
+
         buttonElements.forEach(button => {
             const buttonId = button.id;
             if (buttonId) {
@@ -71,7 +71,7 @@ class ToolbarController {
                     active: false,
                     loading: false
                 });
-                
+
                 // 提取快捷键信息
                 const title = button.getAttribute('title') || '';
                 const shortcutMatch = title.match(/\(([^)]+)\)/);
@@ -81,7 +81,7 @@ class ToolbarController {
             }
         });
     }
-    
+
     /**
      * 绑定按钮事件
      */
@@ -90,17 +90,17 @@ class ToolbarController {
             button.addEventListener('click', (event) => {
                 this.handleButtonClick(buttonId, event);
             });
-            
+
             button.addEventListener('mouseenter', () => {
                 this.handleButtonHover(buttonId, true);
             });
-            
+
             button.addEventListener('mouseleave', () => {
                 this.handleButtonHover(buttonId, false);
             });
         });
     }
-    
+
     /**
      * 初始化快捷键
      */
@@ -109,7 +109,7 @@ class ToolbarController {
             this.handleKeyDown(event);
         });
     }
-    
+
     /**
      * 处理按钮点击
      * @param {string} buttonId - 按钮ID
@@ -118,19 +118,19 @@ class ToolbarController {
     handleButtonClick(buttonId, event) {
         const button = this.buttons.get(buttonId);
         const state = this.buttonStates.get(buttonId);
-        
+
         if (!button || !state.enabled) {
             return;
         }
-        
+
         // 防止重复点击
         if (state.loading) {
             return;
         }
-        
+
         // 添加点击反馈
         this.addClickFeedback(button);
-        
+
         // 触发事件
         this.emit('buttonClick', {
             buttonId,
@@ -138,7 +138,7 @@ class ToolbarController {
             event,
             state: { ...state }
         });
-        
+
         // 特定按钮处理
         switch (buttonId) {
             case 'btnNew':
@@ -179,7 +179,7 @@ class ToolbarController {
                 break;
         }
     }
-    
+
     /**
      * 处理按钮悬停
      * @param {string} buttonId - 按钮ID
@@ -187,9 +187,9 @@ class ToolbarController {
      */
     handleButtonHover(buttonId, isHovering) {
         const button = this.buttons.get(buttonId);
-        
+
         if (!button) return;
-        
+
         if (isHovering) {
             button.classList.add('hover');
             this.emit('buttonHover', { buttonId, button, isHovering: true });
@@ -198,7 +198,7 @@ class ToolbarController {
             this.emit('buttonHover', { buttonId, button, isHovering: false });
         }
     }
-    
+
     /**
      * 处理键盘按下
      * @param {KeyboardEvent} event - 键盘事件
@@ -208,11 +208,11 @@ class ToolbarController {
         if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
             return;
         }
-        
+
         const key = event.key.toLowerCase();
         const ctrlKey = event.ctrlKey || event.metaKey;
         const shiftKey = event.shiftKey;
-        
+
         // 检查快捷键
         this.shortcuts.forEach((shortcut, buttonId) => {
             if (this.matchesShortcut(shortcut, key, ctrlKey, shiftKey)) {
@@ -221,7 +221,7 @@ class ToolbarController {
             }
         });
     }
-    
+
     /**
      * 检查是否匹配快捷键
      * @param {string} shortcut - 快捷键描述
@@ -232,30 +232,30 @@ class ToolbarController {
      */
     matchesShortcut(shortcut, key, ctrlKey, shiftKey) {
         const shortcutLower = shortcut.toLowerCase();
-        
+
         // 解析快捷键
         if (shortcutLower.includes('ctrl+')) {
             if (!ctrlKey) return false;
             const shortcutKey = shortcutLower.replace('ctrl+', '').trim();
             return shortcutKey === key;
         }
-        
+
         if (shortcutLower.includes('shift+')) {
             if (!shiftKey) return false;
             const shortcutKey = shortcutLower.replace('shift+', '').trim();
             return shortcutKey === key;
         }
-        
+
         // 功能键
         const functionKeys = ['f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'f10', 'f11', 'f12'];
         if (functionKeys.includes(key) && shortcutLower === key) {
             return true;
         }
-        
+
         // 单个键
         return shortcutLower === key;
     }
-    
+
     /**
      * 触发按钮点击
      * @param {string} buttonId - 按钮ID
@@ -266,26 +266,26 @@ class ToolbarController {
             button.click();
         }
     }
-    
+
     /**
      * 添加点击反馈
      * @param {HTMLElement} button - 按钮元素
      */
     addClickFeedback(button) {
         button.classList.add('clicked');
-        
+
         setTimeout(() => {
             button.classList.remove('clicked');
         }, this.options.animationDuration);
     }
-    
+
     /**
      * 更新按钮状态
      */
     updateButtonStates() {
         this.buttons.forEach((button, buttonId) => {
             const state = this.buttonStates.get(buttonId);
-            
+
             // 更新DOM状态
             if (state.enabled) {
                 button.removeAttribute('disabled');
@@ -294,19 +294,19 @@ class ToolbarController {
                 button.setAttribute('disabled', 'disabled');
                 button.classList.add('disabled');
             }
-            
+
             if (state.visible) {
                 button.style.display = '';
             } else {
                 button.style.display = 'none';
             }
-            
+
             if (state.active) {
                 button.classList.add('active');
             } else {
                 button.classList.remove('active');
             }
-            
+
             if (state.loading) {
                 button.classList.add('loading');
                 const originalHTML = button.innerHTML;
@@ -322,7 +322,7 @@ class ToolbarController {
             }
         });
     }
-    
+
     /**
      * 设置按钮状态
      * @param {string} buttonId - 按钮ID
@@ -333,15 +333,15 @@ class ToolbarController {
             console.warn(`按钮不存在: ${buttonId}`);
             return;
         }
-        
+
         const currentState = this.buttonStates.get(buttonId);
         this.buttonStates.set(buttonId, { ...currentState, ...state });
-        
+
         this.updateButtonStates();
-        
+
         this.emit('buttonStateChanged', { buttonId, state: this.buttonStates.get(buttonId) });
     }
-    
+
     /**
      * 启用/禁用按钮
      * @param {string} buttonId - 按钮ID
@@ -350,7 +350,7 @@ class ToolbarController {
     setButtonEnabled(buttonId, enabled) {
         this.setButtonState(buttonId, { enabled });
     }
-    
+
     /**
      * 显示/隐藏按钮
      * @param {string} buttonId - 按钮ID
@@ -359,7 +359,7 @@ class ToolbarController {
     setButtonVisible(buttonId, visible) {
         this.setButtonState(buttonId, { visible });
     }
-    
+
     /**
      * 设置按钮激活状态
      * @param {string} buttonId - 按钮ID
@@ -368,7 +368,7 @@ class ToolbarController {
     setButtonActive(buttonId, active) {
         this.setButtonState(buttonId, { active });
     }
-    
+
     /**
      * 设置按钮加载状态
      * @param {string} buttonId - 按钮ID
@@ -377,7 +377,7 @@ class ToolbarController {
     setButtonLoading(buttonId, loading) {
         this.setButtonState(buttonId, { loading });
     }
-    
+
     /**
      * 批量更新按钮状态
      * @param {Object} states - 状态映射
@@ -389,10 +389,10 @@ class ToolbarController {
                 this.buttonStates.set(buttonId, { ...currentState, ...states[buttonId] });
             }
         });
-        
+
         this.updateButtonStates();
     }
-    
+
     /**
      * 获取按钮状态
      * @param {string} buttonId - 按钮ID
@@ -401,7 +401,7 @@ class ToolbarController {
     getButtonState(buttonId) {
         return this.buttonStates.get(buttonId) || null;
     }
-    
+
     /**
      * 获取所有按钮状态
      * @returns {Object} 所有按钮状态
@@ -413,7 +413,7 @@ class ToolbarController {
         });
         return states;
     }
-    
+
     /**
      * 添加新按钮
      * @param {Object} config - 按钮配置
@@ -429,17 +429,17 @@ class ToolbarController {
             group = 'custom',
             position = 'append'
         } = config;
-        
+
         if (!id) {
             throw new Error('按钮必须包含ID');
         }
-        
+
         // 创建按钮元素
         const button = document.createElement('button');
         button.id = id;
         button.className = className;
         button.title = title || text;
-        
+
         // 设置内容
         let html = '';
         if (icon) {
@@ -449,22 +449,22 @@ class ToolbarController {
             html += `<span>${text}</span>`;
         }
         button.innerHTML = html;
-        
+
         // 添加到工具栏
         let targetGroup = this.toolbar.querySelector(`.toolbar-group.${group}`);
         if (!targetGroup) {
             targetGroup = document.createElement('div');
             targetGroup.className = `toolbar-group ${group}`;
-            
+
             if (position === 'prepend') {
                 this.toolbar.prepend(targetGroup);
             } else {
                 this.toolbar.appendChild(targetGroup);
             }
         }
-        
+
         targetGroup.appendChild(button);
-        
+
         // 注册按钮
         this.buttons.set(id, button);
         this.buttonStates.set(id, {
@@ -473,20 +473,20 @@ class ToolbarController {
             active: false,
             loading: false
         });
-        
+
         // 绑定事件
         button.addEventListener('click', (event) => {
             this.handleButtonClick(id, event);
         });
-        
+
         // 更新状态
         this.updateButtonStates();
-        
+
         this.emit('buttonAdded', { buttonId: id, button, config });
-        
+
         return id;
     }
-    
+
     /**
      * 移除按钮
      * @param {string} buttonId - 按钮ID
@@ -494,99 +494,99 @@ class ToolbarController {
     removeButton(buttonId) {
         const button = this.buttons.get(buttonId);
         if (!button) return;
-        
+
         button.remove();
         this.buttons.delete(buttonId);
         this.buttonStates.delete(buttonId);
         this.shortcuts.delete(buttonId);
-        
+
         this.emit('buttonRemoved', { buttonId });
     }
-    
+
     /**
      * 处理新建按钮
      */
     handleNewButton() {
         this.emit('newRequested');
     }
-    
+
     /**
      * 处理保存按钮
      */
     handleSaveButton() {
         this.emit('saveRequested');
     }
-    
+
     /**
      * 处理撤销按钮
      */
     handleUndoButton() {
         this.emit('undoRequested');
     }
-    
+
     /**
      * 处理重做按钮
      */
     handleRedoButton() {
         this.emit('redoRequested');
     }
-    
+
     /**
      * 处理添加根节点按钮
      */
     handleAddRootButton() {
         this.emit('addRootRequested');
     }
-    
+
     /**
      * 处理编辑按钮
      */
     handleEditButton() {
         this.emit('editRequested');
     }
-    
+
     /**
      * 处理删除按钮
      */
     handleDeleteButton() {
         this.emit('deleteRequested');
     }
-    
+
     /**
      * 处理导出按钮
      */
     handleExportButton() {
         this.emit('exportRequested');
     }
-    
+
     /**
      * 处理导入按钮
      */
     handleImportButton() {
         this.emit('importRequested');
     }
-    
+
     /**
      * 处理全屏按钮
      */
     handleFullscreenButton() {
         this.emit('fullscreenRequested');
     }
-    
+
     /**
      * 处理浅色主题按钮
      */
     handleThemeLightButton() {
         this.emit('themeChangeRequested', { theme: 'light-blue' });
     }
-    
+
     /**
      * 处理深色主题按钮
      */
     handleThemeDarkButton() {
         this.emit('themeChangeRequested', { theme: 'dark-gold' });
     }
-    
+
     /**
      * 事件监听
      * @param {string} event - 事件名称
@@ -598,7 +598,7 @@ class ToolbarController {
         }
         this.eventListeners.get(event).push(listener);
     }
-    
+
     /**
      * 移除事件监听
      * @param {string} event - 事件名称
@@ -606,14 +606,14 @@ class ToolbarController {
      */
     off(event, listener) {
         if (!this.eventListeners.has(event)) return;
-        
+
         const listeners = this.eventListeners.get(event);
         const index = listeners.indexOf(listener);
         if (index > -1) {
             listeners.splice(index, 1);
         }
     }
-    
+
     /**
      * 触发事件
      * @param {string} event - 事件名称
@@ -621,7 +621,7 @@ class ToolbarController {
      */
     emit(event, data = {}) {
         if (!this.eventListeners.has(event)) return;
-        
+
         const listeners = this.eventListeners.get(event);
         listeners.forEach(listener => {
             try {
@@ -631,7 +631,7 @@ class ToolbarController {
             }
         });
     }
-    
+
     /**
      * 销毁工具栏控制器
      */
@@ -640,13 +640,13 @@ class ToolbarController {
         this.buttons.forEach(button => {
             button.replaceWith(button.cloneNode(true));
         });
-        
+
         // 清除数据
         this.buttons.clear();
         this.buttonStates.clear();
         this.shortcuts.clear();
         this.eventListeners.clear();
-        
+
         this.toolbar = null;
     }
 }
@@ -655,3 +655,6 @@ class ToolbarController {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = ToolbarController;
 }
+
+// ES6模块导出
+export { ToolbarController };

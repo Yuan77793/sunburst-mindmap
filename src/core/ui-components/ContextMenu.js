@@ -590,3 +590,6 @@ class ContextMenu {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = ContextMenu;
 }
+
+// ES6模块导出
+export { ContextMenu };
