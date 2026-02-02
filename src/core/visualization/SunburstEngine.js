@@ -628,3 +628,6 @@ class SunburstEngine {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = SunburstEngine;
 }
+
+// ES6模块导出
+export { SunburstEngine };

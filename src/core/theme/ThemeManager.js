@@ -601,3 +601,6 @@ class ThemeManager {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = ThemeManager;
 }
+
+// ES6模块导出
+export { ThemeManager };
