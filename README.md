@@ -8,22 +8,52 @@
 
 想要让任何人都能通过链接访问您的应用？只需几步即可部署到GitHub Pages：
 
-### 一键部署（推荐）
-1. 双击 `init-git.bat`（Windows）或运行相应命令
-2. 按照提示输入GitHub仓库URL
-3. 访问GitHub仓库设置 → Pages → 启用GitHub Pages
-4. 等待部署完成，访问生成的链接
+### 一键部署脚本（推荐）
+我们提供了多个部署脚本，选择最适合您的：
+
+1. **完整部署脚本** (`deploy-github.bat`) - 包含交互式向导
+   - 双击运行，按照提示操作
+   - 自动修复Git配置问题
+   - 指导创建GitHub仓库
+   - 一键推送代码
+
+2. **快速部署脚本** (`init-git.bat`) - 简单快速
+   - 需要提前创建GitHub仓库
+   - 快速初始化Git并推送
+
+3. **部署验证脚本** (`check-deployment.bat`) - 验证部署状态
+   - 检查GitHub Pages设置
+   - 验证网站可访问性
+   - 提供故障排除建议
+
+### 解决常见部署问题
+如果您遇到以下问题：
+
+1. **"kgithub.com"连接错误**：
+   ```bash
+   git config --global --unset url.https://kgithub.com/.insteadof
+   ```
+
+2. **仓库不存在错误**：
+   - 先在GitHub创建仓库：https://github.com/new
+   - 仓库名：`sunburst-mindmap-editor`
+   - 不要初始化README、.gitignore或许可证
+
+3. **推送权限错误**：
+   - 检查GitHub用户名是否正确
+   - 确保有仓库写入权限
+   - 使用HTTPS URL而非SSH
 
 ### 详细步骤
-查看 [DEPLOY.md](DEPLOY.md) 获取完整部署指南。
+查看 [DEPLOY-NOW.md](DEPLOY-NOW.md) 获取完整部署指南，或 [enable-pages.md](enable-pages.md) 获取GitHub Pages启用指南。
 
 ### 部署后链接格式
 ```
-https://你的用户名.github.io/仓库名/
+https://你的用户名.github.io/sunburst-mindmap-editor/
 ```
 
 ### 在线演示
-成功部署后，您的应用将可通过上述链接访问，无需本地服务器。
+成功部署后，您的应用将可通过上述链接访问，无需本地服务器。示例：https://limoc.github.io/sunburst-mindmap-editor/
 
 ## 功能特性
 

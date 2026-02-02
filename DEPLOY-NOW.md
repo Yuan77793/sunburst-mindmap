@@ -17,11 +17,17 @@
 https://github.com/您的用户名/sunburst-mindmap-editor.git
 ```
 
-### 第3步：执行部署脚本
+### 第3步：检查并修复Git配置（重要！）
+**修复Git URL重写问题**：
+如果您之前遇到"kgithub.com"错误，请先执行：
+```bash
+git config --global --unset url.https://kgithub.com/.insteadof
+```
+
+### 第4步：执行部署脚本
 **Windows用户**：
-1. 双击 `init-git.bat`
-2. 粘贴第2步复制的URL
-3. 按Enter键执行
+1. 双击 `deploy-github.bat`（推荐）或 `init-git.bat`
+2. 按照提示操作
 
 **所有用户（命令行）**：
 ```bash
@@ -29,12 +35,12 @@ https://github.com/您的用户名/sunburst-mindmap-editor.git
 # 2. 进入项目目录
 cd C:\Users\Limoc\Desktop\sunburst-mindmap
 
-# 3. 执行以下命令（替换YOUR_URL为您的仓库URL）
+# 3. 执行以下命令（替换YOUR_USERNAME为您的GitHub用户名）
 git init
 git add .
 git commit -m "部署旭日图思维导图编辑器"
 git branch -M main
-git remote add origin https://github.com/您的用户名/sunburst-mindmap-editor.git
+git remote add origin https://github.com/YOUR_USERNAME/sunburst-mindmap-editor.git
 git push -u origin main
 ```
 
